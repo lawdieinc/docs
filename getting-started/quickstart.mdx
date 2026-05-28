@@ -1,90 +1,28 @@
 ---
 title: Quickstart
-description: Get Lawdie running and send your first AI-assisted legal email in minutes.
+description: Send your first AI-assisted legal email using Kiwi AI in minutes.
 ---
 
-## Prerequisites
+## Your first workflow — research a case and send an email
 
-- Node.js 18+
-- Python 3.10+
-- A Supabase project
-- API keys for OpenAI and Google
+Walk through this end-to-end example to see Kiwi AI's capabilities working together.
 
-## 1. Clone the repository
+### Step 1 — Open Kiwi AI
 
-```bash
-git clone https://github.com/lawdieinc/lawdie.git
-cd lawdie
-```
-
-## 2. Install dependencies
-
-```bash
-# Frontend
-cd referral-ui-dashboard
-npm install
-
-# Backend
-cd src/backend/serverstuff
-npm install
-```
-
-## 3. Configure environment variables
-
-Create a `.env` file in `referral-ui-dashboard/` and another in `src/backend/serverstuff/`.
-
-```bash
-# Supabase
-REACT_APP_SUPABASE_URL=https://your-project.supabase.co
-REACT_APP_SUPABASE_KEY=your-anon-key
-REACT_APP_SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-
-# API
-REACT_APP_API_URL=http://localhost:4000
-REACT_APP_OPENAI_API_KEY=sk-...
-
-# Google OAuth
-REACT_APP_GOOGLE_CLIENT_ID=your-google-client-id
-```
-
-<Note>
-  All frontend environment variables must be prefixed with `REACT_APP_`. Restart the dev server after any `.env` changes.
-</Note>
-
-## 4. Start the servers
-
-Open two terminals:
-
-```bash
-# Terminal 1 — Frontend (http://localhost:3000)
-cd referral-ui-dashboard
-npm start
-
-# Terminal 2 — Backend (http://localhost:4000)
-cd referral-ui-dashboard/src/backend/serverstuff
-npm start
-```
-
-## 5. Your first workflow — research a case and send an email
-
-Walk through this end-to-end example to see Lawdie's agents working together.
-
-### Step 1 — Open the chat
-
-Log in and navigate to the **Kiwi AI** chatbot from the left sidebar. This is your main interface for all AI agent interactions.
+Log in to Lawdie and navigate to **Kiwi AI** from the left sidebar. This is your main interface for all AI-assisted legal work.
 
 ### Step 2 — Connect Gmail
 
 Before sending email, you need to authorize your Gmail account.
 
-1. Click the **Integrations** icon in the chat toolbar (or go to **Settings → Integrations**)
+1. Click the **Integrations** icon in the Kiwi AI toolbar (or go to **Settings → Integrations**)
 2. Select **Connect Google**
 3. Complete the OAuth flow — grant Gmail send and read permissions when prompted
 4. You'll be returned to the chat with a confirmation that Gmail is connected
 
-### Step 3 — Ask Lawdie to research, draft, and send
+### Step 3 — Ask Kiwi AI to research, draft, and send
 
-Now try this prompt in the chat:
+Try this prompt in the chat:
 
 ```
 Research the top cases on breach of fiduciary duty in Delaware courts,
@@ -92,32 +30,32 @@ then draft a professional email to opposing@lawfirm.com summarizing
 the strongest precedents for my client's position, and send it.
 ```
 
-Lawdie will run the full workflow automatically:
+Kiwi AI runs the full workflow automatically:
 
 <Steps>
-  <Step title="Legal Research Agent searches case law">
+  <Step title="Legal Research searches case law">
     Queries CourtListener for breach of fiduciary duty cases in Delaware, retrieving the most relevant opinions and citations.
   </Step>
-  <Step title="Rule Statement Agent extracts the key rules">
+  <Step title="Rule Statement extracts the key rules">
     Pulls the operative legal standard from each case and scores them by how well they fit the argument.
   </Step>
-  <Step title="Email Agent drafts the message">
+  <Step title="Email drafts the message">
     Composes a professional email summarizing the strongest precedents, with inline citations, addressed to the recipient you specified.
   </Step>
-  <Step title="Email Agent sends it">
-    Sends the email through your connected Gmail account and confirms delivery in the chat.
+  <Step title="Email sends it">
+    Sends through your connected Gmail account and confirms delivery in the chat.
   </Step>
 </Steps>
 
 <Note>
-  You can review the draft before it sends. If you want to approve first, add *"show me the draft before sending"* to your prompt.
+  Add *"show me the draft before sending"* to your prompt if you want to review the email before it goes out.
 </Note>
 
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Explore AI Agents" icon="bot" href="/agents/overview">
-    Learn what each agent can do and when to use it.
+  <Card title="Kiwi AI Overview" icon="message-circle" href="/agents/overview">
+    Learn how jurisdiction selection, content filters, and Prompt Vault work.
   </Card>
   <Card title="Connect Integrations" icon="plug" href="/integrations/google">
     Link Google, Microsoft, Slack, and Clio to your workspace.

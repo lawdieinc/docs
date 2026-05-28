@@ -1,58 +1,74 @@
 ---
-title: Agent Overview
-description: How Lawdie's multi-agent system routes and executes your requests.
+title: Overview
+description: What Kiwi AI is and how to get the most out of it.
 ---
 
-## Architecture
+## What is Kiwi AI?
 
-Lawdie uses a **supervisor-agent pattern** built on LangChain and LangGraph. When you send a message, a supervisor evaluates your practice area and intent, then hands off to a specialized agent.
+Kiwi AI is Lawdie's intelligent chat assistant built specifically for legal professionals. It routes your requests to specialized AI capabilities — legal research, patent searches, email drafting, document generation, and more — all from a single conversation interface.
 
-```
-Your message
-    ↓
-Supervisor Agent
-(reads practice area + intent)
-    ↓
-┌──────────────────────────────────────────┐
-│         Specialized Agents               │
-│                                          │
-│  Legal Research    Rule Statement/RERA   │
-│  Patent Search     Trademark Search      │
-│  Email             Calendar              │
-│  Document Drafting Web Search            │
-└──────────────────────────────────────────┘
-    ↓
-External APIs & Tools
-    ↓
-Streamed response back to you
-```
+You don't select an agent or configure a pipeline. Just describe what you need in plain language and Kiwi AI handles the rest.
 
-All agents stream their responses in real time via Server-Sent Events (SSE) — you see results appear as they're generated, not after.
+## Jurisdiction selection
 
-## Available agents
+Set your jurisdiction before starting a research or drafting session so Kiwi AI tailors its results and legal standards to the right court system.
 
-| Agent | Purpose | Key tools |
-|-------|---------|-----------|
-| [Legal Research](/agents/legal-research) | Case law search and docket lookup | CourtListener, PACER |
-| [Rule Statement & RERA](/agents/rule-statement-rera) | Extract rule statements, draft RE/RA paragraphs | `extract_rule_statements`, `generate_rera` |
-| [Patent Search](/agents/patent-search) | USPTO patent and prior art queries | USPTO API |
-| [Trademark Search](/agents/trademark-search) | Active and inactive trademark lookup | USPTO Trademark API |
-| [Email](/agents/email-agent) | Read, draft, and send emails | Gmail MCP |
-| [Calendar](/agents/calendar-agent) | Create and manage calendar events | Google Calendar API |
-| [Document Drafting](/agents/document-drafting) | Generate legal documents | DOCX generation service |
-| [Web Search](/agents/web-search) | General web research | Tavily API |
+- Click the **Jurisdiction** selector in the Kiwi AI toolbar
+- Choose from federal circuits, state courts, or a specific district
+- The selection persists for the duration of your session and can be changed at any point
 
-## How routing works
+When a jurisdiction is set, legal research queries are scoped to that court system by default, and drafted documents reference the correct local rules and procedural requirements.
 
-The supervisor selects an agent based on two signals:
+## Content filters
 
-1. **Practice area** — set on your user profile in Supabase (`practice_areas` field). Patent attorneys get routed to patent-focused flows; general practice routes to the general supervisor.
-2. **Message intent** — the supervisor reads your message and picks the best-fit agent for the task.
+Content filters let you control the scope and tone of Kiwi AI's output.
 
-<Note>
-  If you're being routed to the wrong agent, check that your practice area is correctly set in your account settings.
-</Note>
+| Filter | What it does |
+|--------|-------------|
+| **Safe search** | Excludes graphic case details from research results |
+| **Formality** | Sets the writing style for drafts — formal (briefs, motions) or plain (client memos, emails) |
+| **Source restrictions** | Limit research to specific databases (e.g., federal courts only, state courts only) |
+| **Citation format** | Choose between Bluebook, ALWD, or jurisdiction-specific citation styles |
 
-## Model
+Access filters from the **Settings** icon in the Kiwi AI toolbar.
 
-All agents run on **Grok-3 (ChatXAI)** by default. Document and image analysis tasks use **Gemini 2.5 Flash**. Rule statement extraction and RERA generation use **GPT-5-mini**.
+## Prompt Vault
+
+Prompt Vault lets you save, organize, and reuse prompts you use frequently.
+
+<Steps>
+  <Step title="Save a prompt">
+    After typing a prompt in the chat, click the **bookmark icon** next to the input field to save it to your vault.
+  </Step>
+  <Step title="Name and tag it">
+    Give the prompt a name and optional tags (e.g., "12(b)(6) research", "demand letter", "NDA draft") so you can find it quickly.
+  </Step>
+  <Step title="Reuse it">
+    Click the **Vault** icon in the toolbar to browse saved prompts. Select one to load it into the chat input, where you can edit it before sending.
+  </Step>
+</Steps>
+
+Prompt Vault is shared across all your chat sessions — prompts saved in one conversation are available in all others.
+
+## What Kiwi AI can do
+
+<CardGroup cols={2}>
+  <Card title="Legal Research" icon="scale" href="/agents/legal-research">
+    Search CourtListener and PACER for relevant case law and opinions.
+  </Card>
+  <Card title="Rule Statement & RERA" icon="file-pen" href="/agents/rule-statement-rera">
+    Extract rule statements and generate RE/RA paragraphs for briefs.
+  </Card>
+  <Card title="Patent Search" icon="lightbulb" href="/agents/patent-search">
+    Query the USPTO database for patents and prior art.
+  </Card>
+  <Card title="Deep Research" icon="telescope" href="/agents/deep-research">
+    Multi-step research across case law, web sources, and regulatory databases.
+  </Card>
+  <Card title="Document Drafting" icon="file-text" href="/agents/document-drafting">
+    Generate contracts, motions, demand letters, and other legal documents.
+  </Card>
+  <Card title="Matters & Templates" icon="folder" href="/agents/matters">
+    Organize work by matter and use templates to standardize repeatable tasks.
+  </Card>
+</CardGroup>

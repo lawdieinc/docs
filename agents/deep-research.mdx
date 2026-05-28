@@ -1,0 +1,71 @@
+---
+title: Deep Research
+description: Multi-step research across case law, regulatory databases, and web sources — synthesized into a single report.
+---
+
+## What it does
+
+Deep Research runs an extended, multi-step investigation on a legal question. Unlike a single agent query, Deep Research autonomously plans a research strategy, queries multiple sources in sequence, cross-references findings, and delivers a structured report with citations.
+
+Use it when a question requires more than a single search — for example, tracing how a legal standard has evolved across circuits, building a comprehensive prior art landscape, or researching an unfamiliar area of law from scratch.
+
+## How it works
+
+<Steps>
+  <Step title="You describe the research question">
+    Provide a question or topic in plain language. The more context you give — jurisdiction, time range, specific legal issue — the more targeted the output.
+  </Step>
+  <Step title="Kiwi AI plans the research strategy">
+    Deep Research breaks the question into sub-queries and determines which sources to hit: CourtListener, USPTO, web sources, regulatory databases.
+  </Step>
+  <Step title="Multi-source queries run in parallel">
+    Searches execute across sources simultaneously. Kiwi AI retrieves opinions, regulatory guidance, secondary sources, and news coverage relevant to the question.
+  </Step>
+  <Step title="Findings are cross-referenced and synthesized">
+    Results are compared, conflicts are flagged, and the strongest authorities are ranked. Redundant or weak sources are filtered out.
+  </Step>
+  <Step title="A structured report is delivered">
+    You receive a formatted report with an executive summary, key findings, relevant authorities with citations, and identified gaps or open questions.
+  </Step>
+</Steps>
+
+## When to use Deep Research vs. a single query
+
+| Scenario | Use |
+|----------|-----|
+| Quick case lookup or citation check | [Legal Research](/agents/legal-research) |
+| Drafting RE/RA paragraphs for a known argument | [Rule Statement & RERA](/agents/rule-statement-rera) |
+| Unfamiliar area of law, comprehensive overview needed | Deep Research |
+| Circuit split analysis across multiple courts | Deep Research |
+| Prior art landscape for a patent application | Deep Research + [Patent Search](/agents/patent-search) |
+| Regulatory compliance research across multiple agencies | Deep Research |
+
+## Example prompts
+
+- *"Give me a deep research report on how courts in the 9th and 11th Circuits have treated the economic loss rule in software contract disputes over the last 10 years."*
+- *"Research the current regulatory landscape for AI-generated legal documents — federal guidance, state bar opinions, and any pending legislation."*
+- *"Build a prior art landscape for natural language processing applied to contract review, covering patents, academic sources, and commercial products."*
+- *"How have courts treated non-compete agreements post-FTC rule? I need a full circuit-by-circuit breakdown."*
+
+## Output format
+
+Deep Research reports are delivered as structured documents with:
+
+- **Executive summary** — 3–5 sentence overview of the key findings
+- **Key authorities** — ranked list of the most relevant cases, statutes, and regulatory guidance with Bluebook citations
+- **Detailed findings** — section-by-section analysis of the research question
+- **Circuit or jurisdiction breakdown** — where applicable, how different courts or regulators have treated the issue
+- **Open questions** — areas where the law is unsettled or evolving
+- **Sources** — full list of all sources consulted
+
+Reports can be downloaded as DOCX for further editing.
+
+## Research depth settings
+
+Control how thorough Deep Research goes via the depth setting in the toolbar before starting:
+
+| Setting | Description |
+|---------|-------------|
+| **Standard** | 3–5 minutes, broad coverage of the main authorities |
+| **Thorough** | 10–15 minutes, full circuit analysis and secondary sources |
+| **Exhaustive** | 20+ minutes, comprehensive landscape including regulatory history and academic commentary |

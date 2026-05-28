@@ -1,0 +1,61 @@
+---
+title: Templates
+description: Create and reuse prompt templates for repeatable legal workflows in Kiwi AI.
+---
+
+## What are Templates?
+
+Templates are pre-built prompts that standardize repeatable tasks. Instead of typing the same instructions every time you draft a demand letter or run a conflict check, you create a template once and reuse it with a single click — filling in only the case-specific details each time.
+
+Templates are different from [Prompt Vault](/agents/overview#prompt-vault) entries: templates are structured with variable placeholders, designed to be shared across a team, and tied to specific workflows.
+
+## Creating a template
+
+<Steps>
+  <Step title="Open the Templates library">
+    Click **Templates** in the Kiwi AI sidebar.
+  </Step>
+  <Step title="Click New Template">
+    Give the template a name and description, and choose a category (Research, Drafting, Email, Analysis).
+  </Step>
+  <Step title="Write the prompt with variables">
+    Use double curly braces for fields that change each time:
+
+    ```
+    Draft a demand letter to {{opposing_party}} on behalf of {{client_name}}.
+    Jurisdiction: {{jurisdiction}}.
+    Claims: {{claims}}.
+    Damages: {{damages}}.
+    ```
+  </Step>
+  <Step title="Save and share">
+    Save the template to your personal library or publish it to your team workspace so everyone can use it.
+  </Step>
+</Steps>
+
+## Using a template
+
+1. Click **Templates** in the toolbar or type `/template` in the chat
+2. Search or browse to find the template you want
+3. Fill in the variable fields in the form that appears
+4. Click **Run** — Kiwi AI executes the prompt with your inputs
+
+## Built-in templates
+
+Lawdie includes a set of starter templates for common legal tasks:
+
+| Template | Category | What it does |
+|----------|----------|-------------|
+| Demand Letter | Drafting | Drafts a formal demand letter with claims and damages |
+| Case Law Research Brief | Research | Searches for relevant cases and summarizes the top results |
+| RERA Paragraph | Drafting | Runs the full rule statement → RERA workflow for a single argument |
+| Conflict Check | Research | Searches for any potential conflicts of interest for a new client or matter |
+| NDA Review | Analysis | Reviews an NDA and flags unusual or missing provisions |
+| Client Intake Summary | Analysis | Extracts key facts from an intake form or document |
+| Motion to Dismiss Outline | Drafting | Generates a 12(b)(6) motion outline based on provided facts |
+
+## Team templates
+
+Templates marked as **Team** are available to everyone in your workspace. Workspace admins can publish, edit, or archive team templates from the Templates library.
+
+Use team templates to enforce consistency across your firm — standard formatting, required jurisdictional language, and approved clause sets.

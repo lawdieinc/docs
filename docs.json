@@ -50,11 +50,13 @@
         ]
       },
       {
-        "group": "AI Agents",
-        "icon": "bot",
+        "group": "Kiwi AI",
+        "icon": "message-circle",
         "expanded": true,
         "pages": [
           "agents/overview",
+          "agents/matters",
+          "agents/templates",
           "agents/legal-research",
           "agents/rule-statement-rera",
           "agents/patent-search",
@@ -62,14 +64,8 @@
           "agents/email-agent",
           "agents/calendar-agent",
           "agents/document-drafting",
-          "agents/web-search"
-        ]
-      },
-      {
-        "group": "Features",
-        "icon": "sparkles",
-        "expanded": true,
-        "pages": [
+          "agents/web-search",
+          "agents/deep-research",
           "features/chat-assistant",
           "features/document-analysis",
           "features/call-center"
