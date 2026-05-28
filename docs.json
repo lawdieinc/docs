@@ -58,16 +58,26 @@
           "agents/matters",
           "agents/templates",
           "agents/legal-research",
+          "agents/deep-research",
           "agents/rule-statement-rera",
           "agents/patent-search",
           "agents/trademark-search",
-          "agents/email-agent",
-          "agents/calendar-agent",
           "agents/document-drafting",
-          "agents/web-search",
-          "agents/deep-research",
-          "features/chat-assistant",
-          "features/document-analysis",
+          "features/document-analysis"
+        ]
+      },
+      {
+        "group": "Email Management",
+        "icon": "mail",
+        "pages": [
+          "agents/email-agent",
+          "agents/calendar-agent"
+        ]
+      },
+      {
+        "group": "Call Center",
+        "icon": "phone",
+        "pages": [
           "features/call-center"
         ]
       },
