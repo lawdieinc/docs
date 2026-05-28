@@ -63,15 +63,16 @@
           "agents/patent-search",
           "agents/trademark-search",
           "agents/document-drafting",
-          "features/document-analysis"
+          "features/document-analysis",
+          "agents/email-agent",
+          "agents/calendar-agent"
         ]
       },
       {
         "group": "Email Management",
         "icon": "mail",
         "pages": [
-          "agents/email-agent",
-          "agents/calendar-agent"
+          "email-management/overview"
         ]
       },
       {

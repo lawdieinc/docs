@@ -1,0 +1,88 @@
+---
+title: Email Management
+description: Connect your Gmail or Outlook inbox and manage emails with AI-powered summaries, response detection, and reply generation.
+---
+
+## Overview
+
+Email Management is a dedicated inbox dashboard inside Lawdie. Connect your Gmail or Microsoft Outlook account and work through your emails without switching apps — every email comes with an AI summary, a signal on whether it needs a response, and a one-click AI reply generator.
+
+## Connecting your inbox
+
+<Tabs>
+  <Tab title="Gmail">
+    <Steps>
+      <Step title="Open Email Management">
+        Navigate to **Email Management** from the left sidebar in the Lawdie dashboard.
+      </Step>
+      <Step title="Connect Gmail">
+        Click **Connect Gmail** and complete the Google OAuth flow. Grant read and send permissions when prompted.
+      </Step>
+      <Step title="Your inbox loads">
+        Lawdie pulls your recent emails and begins generating AI summaries in the background.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Outlook">
+    <Steps>
+      <Step title="Open Email Management">
+        Navigate to **Email Management** from the left sidebar in the Lawdie dashboard.
+      </Step>
+      <Step title="Connect Outlook">
+        Click **Connect Outlook** and sign in with your Microsoft account. Grant Lawdie permission to read and send mail via the Microsoft OAuth flow.
+      </Step>
+      <Step title="Your inbox loads">
+        Lawdie pulls your recent emails and begins generating AI summaries in the background.
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+## AI email summaries
+
+Every email in the dashboard shows a one-line AI summary so you can triage at a glance without opening each message.
+
+For longer threads, click into the email to see a full thread summary — a 2–4 sentence recap of the entire conversation, including who said what and what was agreed.
+
+## Response detection
+
+Each email is automatically flagged with a response status:
+
+| Status | Meaning |
+|--------|---------|
+| **Response required** | The email contains a direct question, request, or action item addressed to you |
+| **FYI** | Informational — no reply expected |
+| **Awaiting your reply** | You haven't responded to a thread that needs one |
+| **No action needed** | Newsletters, notifications, and automated messages |
+
+This lets you quickly filter to only the emails that need your attention.
+
+## AI reply generation
+
+For any email that requires a response, click **Generate Reply** to have Lawdie draft a reply for you.
+
+The generated reply:
+- Matches the tone and formality of the original email
+- Addresses each specific question or request in the thread
+- Uses your name and signature automatically
+- Can be edited before sending
+
+To send without edits, click **Send**. To review and adjust, click into the draft and edit inline before sending.
+
+## Filtering and search
+
+| Filter | Description |
+|--------|-------------|
+| **Response required** | Show only emails flagged as needing a reply |
+| **Unread** | Show only unread emails |
+| **By sender** | Filter by a specific person or domain |
+| **By matter** | If you've linked a matter, show emails associated with it |
+| **Date range** | Narrow to a specific time window |
+
+Use the search bar to find any email by keyword, sender, or subject across your connected inbox.
+
+## Linking emails to matters
+
+Any email can be linked to a [Matter](/agents/matters) in Kiwi AI. Once linked, the email thread appears as context inside that matter's conversation — so when you ask Kiwi AI a question about the case, it has visibility into the relevant email history.
+
+To link an email, open it in the dashboard and click **Add to Matter**, then select the matter from the dropdown.
