@@ -1,0 +1,45 @@
+---
+title: Call Center
+description: Log calls, transcribe recordings, and extract action items automatically.
+---
+
+## Overview
+
+The Lawdie call center module handles inbound and outbound call logging, automatic transcription, and AI-powered transcript analysis. It's built for legal teams that need structured records of client and opposing counsel communications.
+
+## What it does
+
+- **Call logging** — records call metadata (date, duration, participants) automatically
+- **Transcription** — converts call recordings to searchable text
+- **AI analysis** — extracts key facts, action items, and summaries from transcripts
+- **Active call management** — monitor and manage live calls in real time
+
+## Call logs
+
+Every logged call produces a structured record containing:
+
+| Field | Description |
+|-------|-------------|
+| Date & time | When the call occurred |
+| Duration | Length of the call |
+| Participants | Names and roles |
+| Recording URL | Link to the audio recording |
+| Transcript | Full text of the call |
+| Summary | AI-generated summary of key points |
+
+Access call logs from the **Call Center** tab in the Lawdie dashboard.
+
+## Transcript analysis
+
+After a call is transcribed, the AI analysis layer runs automatically. It produces:
+
+- **Summary** — 3–5 sentence overview of what was discussed
+- **Action items** — tasks with owners and deadlines identified in the conversation
+- **Key facts** — dates, case numbers, party names, and other structured data mentioned
+- **Follow-ups** — emails or calendar events to create based on the call
+
+## Webhooks
+
+Call completion events are sent to a configurable webhook endpoint. Use this to trigger downstream workflows — updating a case in Clio, creating a task in Slack, or logging the call in your CRM.
+
+See the [Clio integration](/integrations/clio) and [Slack integration](/integrations/slack) for webhook configuration details.

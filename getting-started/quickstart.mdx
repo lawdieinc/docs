@@ -1,0 +1,87 @@
+---
+title: Quickstart
+description: Get Lawdie running locally in under 10 minutes.
+---
+
+## Prerequisites
+
+- Node.js 18+
+- Python 3.10+
+- A Supabase project
+- API keys for OpenAI, Google, and AWS (see below)
+
+## 1. Clone the repository
+
+```bash
+git clone https://github.com/lawdieinc/lawdie.git
+cd lawdie
+```
+
+## 2. Install dependencies
+
+```bash
+# Frontend
+cd referral-ui-dashboard
+npm install
+
+# Backend
+cd src/backend/serverstuff
+npm install
+```
+
+## 3. Configure environment variables
+
+Create a `.env` file in `referral-ui-dashboard/` and another in `src/backend/serverstuff/`.
+
+```bash
+# Supabase
+REACT_APP_SUPABASE_URL=https://your-project.supabase.co
+REACT_APP_SUPABASE_KEY=your-anon-key
+REACT_APP_SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+
+# API
+REACT_APP_API_URL=http://localhost:4000
+REACT_APP_OPENAI_API_KEY=sk-...
+
+# Google OAuth
+REACT_APP_GOOGLE_CLIENT_ID=your-google-client-id
+
+# AWS
+REACT_APP_AWS_REGION=us-east-2
+REACT_APP_AWS_ACCESS_KEY_ID=AKIA...
+REACT_APP_AWS_SECRET_ACCESS_KEY=your-secret
+REACT_APP_S3_BUCKET_NAME=lawdie-doc-storage
+```
+
+<Note>
+  All frontend environment variables must be prefixed with `REACT_APP_`. Restart the dev server after any `.env` changes.
+</Note>
+
+## 4. Start the servers
+
+Open two terminals:
+
+```bash
+# Terminal 1 — Frontend (http://localhost:3000)
+cd referral-ui-dashboard
+npm start
+
+# Terminal 2 — Backend (http://localhost:4000)
+cd referral-ui-dashboard/src/backend/serverstuff
+npm start
+```
+
+## 5. Log in
+
+Navigate to `http://localhost:3000`. Sign in with your Google account or email. Admin accounts are approved by the Lawdie team.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Explore AI Agents" icon="bot" href="/agents/overview">
+    Learn what each agent can do and when to use it.
+  </Card>
+  <Card title="Connect Integrations" icon="plug" href="/integrations/google">
+    Link Google, Microsoft, Slack, and Clio to your workspace.
+  </Card>
+</CardGroup>

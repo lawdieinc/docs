@@ -1,0 +1,46 @@
+---
+title: Legal Research Agent
+description: Search case law, dockets, and court opinions using CourtListener and PACER.
+---
+
+## What it does
+
+The legal research agent searches federal and state court databases to find relevant case law, pull docket entries, and retrieve full opinion text. It's the starting point for any research-heavy task.
+
+## Tools
+
+| Tool | Description |
+|------|-------------|
+| `searchCaseLaw` | Full-text search across CourtListener's database of opinions |
+| `getOpinionText` | Fetch the full text of a specific opinion by URL |
+| PACER lookup | Access federal court dockets and filings |
+
+## Example prompts
+
+- *"Find cases on qualified immunity for police officers in the 11th Circuit from the last 5 years."*
+- *"Pull the docket for case 1:23-cv-01234 in the Southern District of New York."*
+- *"What did the Supreme Court say about personal jurisdiction in Ford Motor Co. v. Montana?"*
+
+## How to get the best results
+
+<AccordionGroup>
+  <Accordion title="Specify the jurisdiction">
+    Narrow results significantly by naming the circuit, district, or state court. Without a jurisdiction, the search runs across all courts.
+  </Accordion>
+  <Accordion title="Include the legal issue">
+    Frame your query around the specific legal element you're researching (e.g., "failure to state a claim under 12(b)(6)") rather than the case name alone.
+  </Accordion>
+  <Accordion title="Ask for opinion text on key cases">
+    If a case looks relevant, ask Lawdie to pull the full opinion text. This feeds into the Rule Statement agent for RERA drafting.
+  </Accordion>
+</AccordionGroup>
+
+## Connecting to RERA drafting
+
+Legal research pairs directly with the [Rule Statement & RERA agent](/agents/rule-statement-rera). After finding relevant cases, ask Lawdie to extract rule statements and draft RE/RA paragraphs for your brief.
+
+```
+"Find the top cases on breach of fiduciary duty in Delaware, then draft RERA paragraphs for my motion."
+```
+
+Lawdie will run the full workflow: search → extract rule statements → generate RERA.

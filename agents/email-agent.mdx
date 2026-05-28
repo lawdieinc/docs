@@ -1,0 +1,40 @@
+---
+title: Email Agent
+description: Read, draft, and send emails through Gmail without leaving Lawdie.
+---
+
+## What it does
+
+The email agent connects to your Gmail account and lets you manage email directly from the Lawdie chat interface. You can ask it to draft replies, search for threads, summarize an inbox, or send messages — all in plain language.
+
+## Example prompts
+
+- *"Draft a follow-up email to opposing counsel about the discovery deadline."*
+- *"Search my inbox for any emails from John Smith about the Miller case."*
+- *"Summarize the last 5 emails I received today."*
+- *"Reply to the email from Sarah at Clio and confirm the meeting for Thursday."*
+- *"Send an email to client@example.com with the attached settlement agreement."*
+
+## Connecting Gmail
+
+The email agent uses Gmail via a secure OAuth connection. To connect your account:
+
+<Steps>
+  <Step title="Go to Integrations">
+    Navigate to Settings → Integrations in the Lawdie dashboard.
+  </Step>
+  <Step title="Connect Google">
+    Click **Connect Google** and authorize Lawdie to access Gmail with the requested scopes.
+  </Step>
+  <Step title="Confirm the connection">
+    Once authorized, return to the chat and test with a simple query like *"Check my inbox."*
+  </Step>
+</Steps>
+
+<Warning>
+  Lawdie requests only the Gmail scopes needed for reading and sending mail. It does not store email content — all access is live through the Gmail API.
+</Warning>
+
+## Related integrations
+
+- [Google Integration](/integrations/google) — full setup guide for Gmail, Calendar, and Drive

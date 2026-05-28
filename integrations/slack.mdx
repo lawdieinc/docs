@@ -1,0 +1,66 @@
+---
+title: Slack
+description: Send Lawdie notifications and call center updates to Slack channels.
+---
+
+## Overview
+
+The Slack integration lets Lawdie post notifications into your firm's Slack workspace. Use it to route call center updates, document generation completions, and agent activity summaries to the right channels automatically.
+
+## What you can send to Slack
+
+| Event | Description |
+|-------|-------------|
+| Call completed | Summary, participants, and action items after a call is logged |
+| Document generated | Notification with a download link when a draft is ready |
+| Research completed | Summary of a legal research or patent search result |
+| Custom alerts | Webhook-triggered messages for any Lawdie event |
+
+## Connecting Slack
+
+<Steps>
+  <Step title="Open Settings">
+    Navigate to **Settings → Integrations** in the Lawdie dashboard.
+  </Step>
+  <Step title="Click Connect Slack">
+    Select the Slack integration tile and click **Connect to Slack**.
+  </Step>
+  <Step title="Authorize in Slack">
+    A Slack OAuth window opens. Select the workspace and the channel(s) Lawdie should post to, then click **Allow**.
+  </Step>
+  <Step title="Configure notifications">
+    Back in Lawdie, choose which events should trigger Slack messages and which channel each event routes to.
+  </Step>
+</Steps>
+
+## Call center Slack notifications
+
+The call center integration posts a structured message to Slack after each completed call:
+
+```
+📞 Call completed — [Client Name]
+Duration: 23 min
+Participants: Jane Doe (attorney), John Smith (client)
+Summary: Discussed settlement offer. Client accepted $45k.
+Action items:
+  • Draft settlement agreement by Friday
+  • Send countersigned docs to opposing counsel
+```
+
+## Webhook configuration
+
+For custom events or advanced workflows, configure Lawdie's outgoing webhook to post directly to a Slack incoming webhook URL.
+
+1. Create an **Incoming Webhook** in your Slack app settings
+2. Copy the webhook URL
+3. Paste it into **Settings → Integrations → Slack → Custom Webhook**
+
+This allows you to build Slack notifications for any Lawdie event without writing code.
+
+## Troubleshooting
+
+| Issue | Fix |
+|-------|-----|
+| Messages not appearing in channel | Verify the bot was invited to the channel with `/invite @Lawdie` |
+| Wrong channel receiving messages | Update the channel mapping in Settings → Integrations → Slack |
+| OAuth failed | Ensure you have Slack admin permissions to install apps in your workspace |

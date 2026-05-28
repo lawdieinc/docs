@@ -1,0 +1,51 @@
+---
+title: Chat Assistant
+description: How to use the Lawdie chat interface, including file uploads and streaming.
+---
+
+## Overview
+
+The Lawdie chat interface is the primary way you interact with all AI agents. Messages stream back in real time, and you can attach documents, images, and files directly to your queries.
+
+## Sending messages
+
+Type your request in the chat input and press Enter. The supervisor agent routes it automatically — you don't need to specify which agent to use. Lawdie reads your intent and practice area and selects the right specialist.
+
+## Attaching files
+
+You can attach the following file types directly in the chat:
+
+| File type | What happens |
+|-----------|-------------|
+| PDF | Extracted and analyzed with Gemini 2.5 Flash |
+| DOCX | Auto-converted to PDF, then analyzed |
+| Images (JPG, PNG) | Analyzed with Gemini vision — useful for patent diagrams, annotated documents |
+| Other documents | Parsed and made available for context |
+
+To attach a file, click the paperclip icon or drag and drop into the chat window.
+
+## Conversation history
+
+Each chat session is saved with a unique thread ID. You can return to any prior conversation and continue where you left off. Conversation history is persisted per user account.
+
+To start a fresh conversation without prior context, open a new chat from the sidebar.
+
+## Streaming responses
+
+Responses stream in real time as the agent works. You'll see:
+
+- **Tool call indicators** — shown as the agent invokes external APIs (e.g., "Searching CourtListener...")
+- **Partial text** — responses render as they're generated, not after
+- **Artifacts** — downloadable files (DOCX, PDF) appear inline when a document is generated
+
+## Document Mode
+
+For multi-document analysis tasks, switch to **Document Mode** from the chat toolbar. This lets you upload multiple files and ask questions that span across all of them — useful for contract comparison, deposition review, or document discovery.
+
+## Keyboard shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Enter` | Send message |
+| `Shift + Enter` | New line |
+| `Ctrl + /` | Open command palette |

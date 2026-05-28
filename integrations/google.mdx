@@ -1,0 +1,62 @@
+---
+title: Google
+description: Connect Gmail, Google Calendar, and Google Drive to Lawdie.
+---
+
+## Overview
+
+The Google integration unlocks the [Email agent](/agents/email-agent) and [Calendar agent](/agents/calendar-agent), and enables document uploads directly from Google Drive.
+
+## What's included
+
+| Service | What Lawdie can do |
+|---------|-------------------|
+| **Gmail** | Read, search, draft, and send emails |
+| **Google Calendar** | Create, read, update, and delete calendar events |
+| **Google Drive** | Browse and attach files from Drive to your chat |
+
+## Connecting your Google account
+
+<Steps>
+  <Step title="Open Settings">
+    Navigate to **Settings → Integrations** in the Lawdie dashboard.
+  </Step>
+  <Step title="Click Connect Google">
+    Select the Google integration tile and click **Connect**.
+  </Step>
+  <Step title="Authorize in Google">
+    A Google OAuth window will open. Sign in and grant Lawdie the requested permissions:
+    - Gmail: Read and send mail
+    - Calendar: Read and write events
+    - Drive: Read files (optional)
+  </Step>
+  <Step title="Confirm">
+    You'll be redirected back to Lawdie. The integration tile will show a green connected status.
+  </Step>
+</Steps>
+
+## Permissions
+
+Lawdie requests only the scopes necessary for each feature. If you skip Drive during setup, Gmail and Calendar still work independently.
+
+| Scope | Required for |
+|-------|-------------|
+| `gmail.modify` | Email agent (read + send) |
+| `calendar.events` | Calendar agent |
+| `drive.readonly` | Drive file picker (optional) |
+
+<Warning>
+  Lawdie does not store email or calendar content. All data is accessed live through the Google API at the time of your request.
+</Warning>
+
+## Re-authorizing
+
+If your Google token expires or you revoke access, the agents will prompt you to reconnect. Return to **Settings → Integrations** and click **Reconnect Google** to restore access without losing your other settings.
+
+## Troubleshooting
+
+| Issue | Fix |
+|-------|-----|
+| Email agent returns "not connected" | Re-authorize at Settings → Integrations |
+| Calendar events aren't appearing | Confirm you authorized the `calendar.events` scope during OAuth |
+| Drive picker doesn't show files | Reconnect and ensure Drive access was granted |

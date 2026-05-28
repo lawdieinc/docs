@@ -1,0 +1,74 @@
+---
+title: Clio
+description: Sync matters, contacts, and documents between Lawdie and Clio Manage.
+---
+
+## Overview
+
+The Clio integration connects Lawdie to Clio Manage, your practice management system. It lets you pull matter and contact context into your Lawdie conversations, push generated documents back to Clio, and trigger Lawdie workflows from Clio events.
+
+## What's included
+
+| Feature | Description |
+|---------|-------------|
+| **Matter context** | Reference a Clio matter in chat — Lawdie pulls the relevant details automatically |
+| **Contact lookup** | Search Clio contacts by name or matter to use in drafts and emails |
+| **Document push** | Send generated DOCX files directly to a Clio matter's document folder |
+| **Call log sync** | Sync completed call logs from Lawdie's call center to Clio as time entries or notes |
+| **Webhooks** | Trigger Lawdie actions from Clio events (new matter, new contact, task due) |
+
+## Connecting Clio
+
+<Steps>
+  <Step title="Open Settings">
+    Navigate to **Settings → Integrations** in the Lawdie dashboard.
+  </Step>
+  <Step title="Click Connect Clio">
+    Select the Clio integration tile and click **Connect**.
+  </Step>
+  <Step title="Authorize in Clio">
+    A Clio OAuth window opens. Sign in to your Clio account and grant Lawdie access to Matters, Contacts, and Documents.
+  </Step>
+  <Step title="Confirm">
+    You'll be redirected back to Lawdie. The integration tile will show a green connected status.
+  </Step>
+</Steps>
+
+## Using Clio in the chat
+
+Once connected, reference a Clio matter directly in your prompts:
+
+- *"Draft a demand letter for the Johnson matter in Clio."*
+- *"Look up the contact details for opposing counsel on matter #2024-0087."*
+- *"Save this settlement agreement to the Miller matter in Clio."*
+
+Lawdie resolves the matter or contact automatically and pulls the relevant data from Clio before drafting.
+
+## Call log sync
+
+After enabling call log sync, every completed call in Lawdie's call center creates a corresponding note or time entry in the linked Clio matter. Configure the sync behavior in **Settings → Integrations → Clio → Call Sync**.
+
+| Setting | Options |
+|---------|---------|
+| Sync as | Time entry or Note |
+| Matter matching | Auto-match by participant name, or manually assign |
+| Include transcript | Yes / No |
+
+## Webhooks from Clio
+
+Configure Clio to notify Lawdie when specific events occur:
+
+- New matter created → auto-draft client intake checklist
+- Task due → send Slack reminder + calendar block
+- New contact added → run a conflict check via web search
+
+Set webhook URLs in the Clio developer portal under **Settings → API → Webhooks**, pointing to your Lawdie backend endpoint.
+
+## Troubleshooting
+
+| Issue | Fix |
+|-------|-----|
+| Matter not found in chat | Confirm the matter exists in Clio and the name matches exactly |
+| Document push fails | Check that the Clio OAuth token hasn't expired — reconnect if needed |
+| Call logs not syncing | Verify the matter assignment in Call Sync settings |
+| Webhook not triggering | Confirm the endpoint URL is correct and the Lawdie server is reachable |

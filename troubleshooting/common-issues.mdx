@@ -1,0 +1,87 @@
+---
+title: Common Issues
+description: Fixes for the most frequent problems in Lawdie.
+---
+
+## Agent streaming hangs or stops mid-response
+
+The response starts but stops partway through, or the loading indicator spins indefinitely.
+
+**Fixes:**
+1. Check the backend server logs for errors (`src/backend/serverstuff/`)
+2. Verify your Supabase connection is active and the project is not paused
+3. Confirm all LLM API keys (OpenAI, XAI/Grok) are valid and have remaining quota
+4. Refresh the page and try again — SSE connections occasionally drop on network changes
+
+---
+
+## CORS errors in the browser console
+
+You see `Access-Control-Allow-Origin` errors when the frontend tries to reach the backend.
+
+**Fixes:**
+1. Confirm the backend `CORS` configuration in `server.js` includes your frontend URL (`localhost:3000` for local, `lawdie.co` for production)
+2. Check that `FRONTEND_URL` is set correctly in the backend `.env`
+3. Restart the backend server after any `.env` changes
+
+---
+
+## Environment variables not loading
+
+The app behaves as if API keys or URLs are missing.
+
+**Fixes:**
+1. All frontend variables must start with `REACT_APP_` — variables without this prefix are ignored by Create React App
+2. Restart both the frontend and backend servers after editing any `.env` file — changes are not hot-reloaded
+3. Confirm `.env` files exist in both `referral-ui-dashboard/` (frontend) and `src/backend/serverstuff/` (backend)
+
+---
+
+## Document upload fails
+
+File uploads produce an error or the file never appears in the chat.
+
+**Fixes:**
+1. Verify AWS S3 credentials in the backend `.env` (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `S3_BUCKET_NAME`)
+2. Check the IAM user has `s3:PutObject` and `s3:GetObject` permissions on the bucket
+3. Confirm the S3 bucket region matches `AWS_REGION` in `.env`
+4. Check that the file is under the size limit (50MB)
+
+---
+
+## Routed to the wrong agent
+
+Your request keeps going to the wrong specialist — e.g., a patent question going to the general legal research agent.
+
+**Fixes:**
+1. Check your `practice_areas` field in the Supabase `users` table — it must be set correctly for the supervisor to route you to the patent workflow
+2. Be explicit in your prompt: start with the topic (e.g., "USPTO patent search for...") to help the supervisor identify intent
+3. Contact your workspace admin to update your practice area if you don't have database access
+
+---
+
+## Google integration disconnected
+
+Gmail or Calendar agent returns "not connected" errors.
+
+**Fixes:**
+1. Go to **Settings → Integrations** and click **Reconnect Google**
+2. Complete the OAuth flow and grant all requested scopes
+3. If using a Google Workspace account, confirm your admin has not blocked third-party OAuth apps
+
+---
+
+## Clio documents not syncing
+
+Generated documents aren't appearing in Clio matters.
+
+**Fixes:**
+1. Reconnect Clio at **Settings → Integrations** — the OAuth token may have expired
+2. Confirm the matter name in your Lawdie prompt exactly matches the matter name in Clio
+3. Check that the Clio OAuth scope includes `documents:write`
+
+---
+
+## Need more help?
+
+Reach the Lawdie support team at **support@lawdie.co** or open an issue on the [GitHub repository](https://github.com/lawdieinc).

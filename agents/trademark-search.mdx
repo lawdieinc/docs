@@ -1,0 +1,31 @@
+---
+title: Trademark Search Agent
+description: Search the USPTO trademark database for active and inactive marks.
+---
+
+## What it does
+
+The trademark search agent queries the USPTO trademark database by keyword to find registered, pending, and abandoned marks. It supports both active and inactive mark searches and verifies results for relevance before returning them.
+
+## Search types
+
+| Type | Description |
+|------|-------------|
+| `active` | Returns live, registered, and pending marks (default) |
+| `inactive` | Returns abandoned, cancelled, and expired marks |
+
+## Example prompts
+
+- *"Search for active trademarks containing the word 'Apex' in the sporting goods category."*
+- *"Is 'Verdant Legal' already trademarked?"*
+- *"Find all inactive marks for 'Falcon' in class 45 (legal services)."*
+- *"Check if any company has trademarked a logo described as a blue shield with a gavel."*
+
+## How results are verified
+
+Raw USPTO results are filtered through a relevance verification step before being returned. This removes unrelated marks that match a keyword but have no meaningful connection to the searched goods or services category.
+
+## Related agents
+
+- [Patent Search](/agents/patent-search) — for patent and prior art research alongside trademark work
+- [Web Search](/agents/web-search) — for common law trademark usage that may not be in the USPTO database

@@ -1,0 +1,58 @@
+---
+title: Agent Overview
+description: How Lawdie's multi-agent system routes and executes your requests.
+---
+
+## Architecture
+
+Lawdie uses a **supervisor-agent pattern** built on LangChain and LangGraph. When you send a message, a supervisor evaluates your practice area and intent, then hands off to a specialized agent.
+
+```
+Your message
+    ↓
+Supervisor Agent
+(reads practice area + intent)
+    ↓
+┌──────────────────────────────────────────┐
+│         Specialized Agents               │
+│                                          │
+│  Legal Research    Rule Statement/RERA   │
+│  Patent Search     Trademark Search      │
+│  Email             Calendar              │
+│  Document Drafting Web Search            │
+└──────────────────────────────────────────┘
+    ↓
+External APIs & Tools
+    ↓
+Streamed response back to you
+```
+
+All agents stream their responses in real time via Server-Sent Events (SSE) — you see results appear as they're generated, not after.
+
+## Available agents
+
+| Agent | Purpose | Key tools |
+|-------|---------|-----------|
+| [Legal Research](/agents/legal-research) | Case law search and docket lookup | CourtListener, PACER |
+| [Rule Statement & RERA](/agents/rule-statement-rera) | Extract rule statements, draft RE/RA paragraphs | `extract_rule_statements`, `generate_rera` |
+| [Patent Search](/agents/patent-search) | USPTO patent and prior art queries | USPTO API |
+| [Trademark Search](/agents/trademark-search) | Active and inactive trademark lookup | USPTO Trademark API |
+| [Email](/agents/email-agent) | Read, draft, and send emails | Gmail MCP |
+| [Calendar](/agents/calendar-agent) | Create and manage calendar events | Google Calendar API |
+| [Document Drafting](/agents/document-drafting) | Generate legal documents | DOCX generation service |
+| [Web Search](/agents/web-search) | General web research | Tavily API |
+
+## How routing works
+
+The supervisor selects an agent based on two signals:
+
+1. **Practice area** — set on your user profile in Supabase (`practice_areas` field). Patent attorneys get routed to patent-focused flows; general practice routes to the general supervisor.
+2. **Message intent** — the supervisor reads your message and picks the best-fit agent for the task.
+
+<Note>
+  If you're being routed to the wrong agent, check that your practice area is correctly set in your account settings.
+</Note>
+
+## Model
+
+All agents run on **Grok-3 (ChatXAI)** by default. Document and image analysis tasks use **Gemini 2.5 Flash**. Rule statement extraction and RERA generation use **GPT-5-mini**.

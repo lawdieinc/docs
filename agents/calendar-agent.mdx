@@ -1,0 +1,31 @@
+---
+title: Calendar Agent
+description: Create, read, update, and delete Google Calendar events from the Lawdie chat.
+---
+
+## What it does
+
+The calendar agent connects to Google Calendar and lets you manage your schedule in plain language. Create hearings, set client meetings, check your availability, and update or cancel events — without leaving the chat.
+
+## Supported operations
+
+| Operation | Example |
+|-----------|---------|
+| Create event | *"Schedule a client call with Jane Doe next Tuesday at 2pm for 1 hour."* |
+| Read/search | *"What's on my calendar this Friday?"* |
+| Update event | *"Move my 3pm call tomorrow to 4pm."* |
+| Delete event | *"Cancel the deposition prep session on Monday."* |
+| Check availability | *"Am I free Thursday afternoon for a 2-hour block?"* |
+
+## Example prompts
+
+- *"Add a court hearing for case #2024-CV-1234 on March 15th at 9am at the Southern District courthouse."*
+- *"Set a reminder 2 days before the filing deadline on April 30th."*
+- *"What meetings do I have next week?"*
+- *"Block off every Friday afternoon for client intake calls."*
+
+## Setup
+
+The calendar agent uses the same Google OAuth connection as the email agent. If you've already connected Google, no additional setup is required.
+
+See the [Google Integration guide](/integrations/google) for setup instructions.

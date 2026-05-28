@@ -1,0 +1,60 @@
+---
+title: Microsoft
+description: Connect Microsoft OneDrive and Azure to Lawdie for cloud storage and document access.
+---
+
+## Overview
+
+The Microsoft integration lets you access files stored in OneDrive directly from Lawdie's chat interface, and supports Azure-based deployments for firms that run infrastructure on Microsoft's cloud.
+
+## What's included
+
+| Service | What Lawdie can do |
+|---------|-------------------|
+| **OneDrive** | Browse, attach, and retrieve documents from OneDrive in the chat |
+| **Azure** | Infrastructure support for self-hosted Lawdie deployments |
+
+## Connecting OneDrive
+
+<Steps>
+  <Step title="Open Settings">
+    Navigate to **Settings → Integrations** in the Lawdie dashboard.
+  </Step>
+  <Step title="Click Connect Microsoft">
+    Select the Microsoft integration tile and click **Connect**.
+  </Step>
+  <Step title="Sign in with Microsoft">
+    A Microsoft OAuth window will open. Sign in with your Microsoft 365 or personal Microsoft account and grant Lawdie read access to OneDrive.
+  </Step>
+  <Step title="Confirm">
+    You'll be redirected back to Lawdie with OneDrive accessible from the file picker in the chat.
+  </Step>
+</Steps>
+
+## Using OneDrive files in the chat
+
+Once connected, click the file picker in the chat input and select **OneDrive**. Browse your files and folders, select a document, and it will be attached to your message for analysis by the [Document Analysis](/features/document-analysis) feature.
+
+**Supported file types from OneDrive:**
+- Word documents (`.docx`)
+- PDFs
+- Excel spreadsheets (`.xlsx`) — for structured data extraction
+- PowerPoint presentations (`.pptx`)
+
+## Azure deployment
+
+For firms hosting Lawdie on Azure, the backend can be deployed as an Azure App Service or Container Instance. Key configuration:
+
+- Set all environment variables via Azure App Configuration or Key Vault references
+- Use Azure Blob Storage as an alternative to AWS S3 for document storage (requires custom configuration)
+- Configure Azure Active Directory for enterprise SSO instead of Google OAuth
+
+Contact the Lawdie team for enterprise Azure deployment support.
+
+## Troubleshooting
+
+| Issue | Fix |
+|-------|-----|
+| OneDrive picker shows empty | Re-authorize and confirm OneDrive access was granted during OAuth |
+| Files fail to attach from OneDrive | Check that the file type is supported and under 50MB |
+| Azure deployment errors | Verify all required environment variables are set in App Configuration |

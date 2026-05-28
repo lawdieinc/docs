@@ -1,0 +1,62 @@
+---
+title: Document Analysis
+description: Upload PDFs, DOCX files, and images for AI-powered review, extraction, and comparison.
+---
+
+## Overview
+
+Lawdie can read and analyze legal documents you upload — contracts, court filings, discovery materials, patent diagrams, and more. Analysis is powered by Gemini 2.5 Flash for text-heavy documents and Gemini vision for image-based content.
+
+## Supported file types
+
+| Format | Notes |
+|--------|-------|
+| PDF | Directly analyzed |
+| DOCX | Auto-converted to PDF before analysis |
+| JPG / PNG | Vision analysis — useful for diagrams, annotations, scanned documents |
+| Multi-page PDFs | Full document processed; large files may be chunked |
+
+## Single document analysis
+
+Attach a file to any chat message and ask your question. The document is analyzed in context with your query.
+
+**Example prompts:**
+- *"Summarize the key obligations of both parties in this contract."*
+- *"Find any indemnification clauses and flag any that are unusually broad."*
+- *"What is the termination notice period in this agreement?"*
+- *"Does this NDA include a non-solicitation provision?"*
+
+## Document Mode (multi-document)
+
+For tasks that span multiple files, switch to **Document Mode** from the chat toolbar.
+
+**Use cases:**
+- Compare two versions of a contract
+- Cross-reference deposition transcripts against a complaint
+- Review a full discovery production and identify relevant documents
+- Analyze multiple patent filings side by side
+
+In Document Mode, upload all relevant files first, then ask questions that reference across the set.
+
+## Patent image analysis
+
+For patent diagrams and technical drawings, Lawdie uses canvas annotation tools to let you highlight specific figures before asking questions. This is especially useful for claim mapping and infringement analysis.
+
+<Steps>
+  <Step title="Upload the patent document or image">
+    Attach the patent PDF or image file in the chat.
+  </Step>
+  <Step title="Switch to Patent Image Analysis mode">
+    Click the patent analysis icon in the toolbar.
+  </Step>
+  <Step title="Annotate the diagram">
+    Use the canvas tools to mark up specific figures or components.
+  </Step>
+  <Step title="Ask your question">
+    Lawdie analyzes the annotated image and responds with claim-level detail.
+  </Step>
+</Steps>
+
+## Storage
+
+Uploaded documents are stored temporarily during your session for analysis. Long-term document storage uses AWS S3 — files are associated with your account and accessible across sessions.
