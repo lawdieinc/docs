@@ -1,6 +1,6 @@
 ---
 title: Quickstart
-description: Get Lawdie running locally in under 10 minutes.
+description: Get Lawdie running and send your first AI-assisted legal email in minutes.
 ---
 
 ## Prerequisites
@@ -8,7 +8,7 @@ description: Get Lawdie running locally in under 10 minutes.
 - Node.js 18+
 - Python 3.10+
 - A Supabase project
-- API keys for OpenAI, Google, and AWS (see below)
+- API keys for OpenAI and Google
 
 ## 1. Clone the repository
 
@@ -45,12 +45,6 @@ REACT_APP_OPENAI_API_KEY=sk-...
 
 # Google OAuth
 REACT_APP_GOOGLE_CLIENT_ID=your-google-client-id
-
-# AWS
-REACT_APP_AWS_REGION=us-east-2
-REACT_APP_AWS_ACCESS_KEY_ID=AKIA...
-REACT_APP_AWS_SECRET_ACCESS_KEY=your-secret
-REACT_APP_S3_BUCKET_NAME=lawdie-doc-storage
 ```
 
 <Note>
@@ -71,9 +65,53 @@ cd referral-ui-dashboard/src/backend/serverstuff
 npm start
 ```
 
-## 5. Log in
+## 5. Your first workflow — research a case and send an email
 
-Navigate to `http://localhost:3000`. Sign in with your Google account or email. Admin accounts are approved by the Lawdie team.
+Walk through this end-to-end example to see Lawdie's agents working together.
+
+### Step 1 — Open the chat
+
+Log in and navigate to the **Kiwi AI** chatbot from the left sidebar. This is your main interface for all AI agent interactions.
+
+### Step 2 — Connect Gmail
+
+Before sending email, you need to authorize your Gmail account.
+
+1. Click the **Integrations** icon in the chat toolbar (or go to **Settings → Integrations**)
+2. Select **Connect Google**
+3. Complete the OAuth flow — grant Gmail send and read permissions when prompted
+4. You'll be returned to the chat with a confirmation that Gmail is connected
+
+### Step 3 — Ask Lawdie to research, draft, and send
+
+Now try this prompt in the chat:
+
+```
+Research the top cases on breach of fiduciary duty in Delaware courts,
+then draft a professional email to opposing@lawfirm.com summarizing
+the strongest precedents for my client's position, and send it.
+```
+
+Lawdie will run the full workflow automatically:
+
+<Steps>
+  <Step title="Legal Research Agent searches case law">
+    Queries CourtListener for breach of fiduciary duty cases in Delaware, retrieving the most relevant opinions and citations.
+  </Step>
+  <Step title="Rule Statement Agent extracts the key rules">
+    Pulls the operative legal standard from each case and scores them by how well they fit the argument.
+  </Step>
+  <Step title="Email Agent drafts the message">
+    Composes a professional email summarizing the strongest precedents, with inline citations, addressed to the recipient you specified.
+  </Step>
+  <Step title="Email Agent sends it">
+    Sends the email through your connected Gmail account and confirms delivery in the chat.
+  </Step>
+</Steps>
+
+<Note>
+  You can review the draft before it sends. If you want to approve first, add *"show me the draft before sending"* to your prompt.
+</Note>
 
 ## Next steps
 

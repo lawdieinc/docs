@@ -81,7 +81,6 @@
         "expanded": true,
         "pages": [
           "integrations/google",
-          "integrations/aws",
           "integrations/microsoft",
           "integrations/slack",
           "integrations/clio"
