@@ -1,0 +1,332 @@
+---
+title: Legal Research API
+description: Programmatic access to Lawdie's legal research agent — case law, statutes, PACER dockets, citation validity, and legal scholarship via a single streaming endpoint.
+---
+
+## Overview
+
+The Legal Research API gives you direct access to the same research agent powering Lawdie's chat interface. Send a natural language legal question and receive a streamed, fully-cited response drawn from CourtListener, OpenLaws, PACER, and legal scholarship sources.
+
+Every case returned is automatically checked for citation validity before it appears in the response. If a case has been overruled or reversed, the API flags it prominently rather than silently returning bad law.
+
+**What it searches:**
+
+| Source | Coverage |
+|---|---|
+| CourtListener | Federal and state opinions, full opinion text |
+| OpenLaws | State case law, statutes, regulations, court rules |
+| PACER via CourtListener RECAP | Federal dockets and filings |
+| Google Scholar / CourtListener (web) | Fallback when primary sources return no results |
+| SSRN, Harvard Law Review, Yale LJ, Cornell LII, ABA | Law reviews and treatises |
+
+---
+
+## Base URL
+
+```
+https://api.lawdie.co
+```
+
+---
+
+## Authentication
+
+All requests (except `/health`) require an API key passed in the `X-API-Key` header.
+
+```http
+X-API-Key: lra_your_key_here
+```
+
+### Getting an API key
+
+1. Log in to your Lawdie account at [lawdie.co](https://lawdie.co)
+2. Go to **Settings → API**
+3. Click **Generate Key** — your key is shown once, copy it immediately
+4. New accounts start on a 7-day trial (1,000 requests/month)
+
+<Warning>
+  Store your API key securely. It cannot be retrieved after initial generation — only revoked and replaced.
+</Warning>
+
+### Rate limits
+
+| Limit | Default |
+|---|---|
+| Requests per minute | 60 |
+| Requests per month | 1,000 (trial and base plan) |
+
+When the monthly limit is reached the API returns `429` with `limit` and `used` fields in the response body. The counter resets on the first of each month.
+
+---
+
+## Endpoints
+
+### POST /research
+
+Run a legal research query. Returns a Server-Sent Events (SSE) stream.
+
+**Headers**
+
+```http
+Content-Type: application/json
+X-API-Key: lra_your_key_here
+```
+
+**Request body**
+
+```json
+{
+  "query": "What is the standard for granting a preliminary injunction in the 9th Circuit?",
+  "threadId": "thread_abc123",
+  "jurisdiction": "9th Circuit",
+  "courtFilters": ["ca9"]
+}
+```
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `query` | string | Yes | Your legal research question in plain language |
+| `threadId` | string | No | Reuse a thread ID to continue a prior conversation. Auto-generated if omitted |
+| `jurisdiction` | string | No | Natural language jurisdiction hint — e.g. `"Southern District of New York"`, `"California"`, `"Federal"`. Focuses the research without hard-filtering |
+| `courtFilters` | string[] | No | Court codes passed directly to the case law search — e.g. `["ca9", "scotus"]`. See [court codes](#court-codes) |
+
+<Note>
+  `jurisdiction` and `courtFilters` are complementary. `jurisdiction` adds a natural language focus instruction; `courtFilters` hard-filters the CourtListener query to specific court codes. Use both for the tightest results.
+</Note>
+
+---
+
+### GET /health
+
+Health check. No authentication required.
+
+```http
+GET /health
+```
+
+**Response**
+
+```json
+{
+  "status": "ok",
+  "service": "lawdie-legal-research-api",
+  "timestamp": "2026-06-09T14:22:01.000Z"
+}
+```
+
+---
+
+## Streaming response
+
+The `/research` endpoint responds with `Content-Type: text/event-stream`. Each line is a `data:` event followed by `\n\n`.
+
+There are three categories of events:
+
+### 1. Progress events
+
+Emitted while the agent is working. Each has a JSON body with an `event` field. Use these to build progress indicators.
+
+```
+data: {"event":"tool_call","toolName":"search_case_law","query":"preliminary injunction 9th circuit"}
+
+data: {"event":"tool_result","toolName":"search_case_law","query":"preliminary injunction 9th circuit","count":18}
+
+data: {"event":"verify_start","toolName":"search_case_law"}
+
+data: {"event":"verify_result","toolName":"search_case_law","query":"preliminary injunction 9th circuit","count":6}
+
+data: {"event":"tool_call","toolName":"get_opinion_text","opinion_id":2812934,"case_name":"Winter v. Natural Resources Defense Council"}
+
+data: {"event":"tool_result","toolName":"get_opinion_text","opinion_id":2812934,"case_name":"Winter v. Natural Resources Defense Council","length":48200}
+
+data: {"event":"tool_call","toolName":"check_citation_validity","citation":"555 U.S. 7"}
+
+data: {"event":"verify_result","toolName":"check_citation_validity","citation":"555 U.S. 7","status":"GOOD_LAW"}
+```
+
+**All `toolName` values**
+
+| `toolName` | What it means |
+|---|---|
+| `search_case_law` | Searching CourtListener + OpenLaws for opinions |
+| `get_opinion_text` | Fetching full text of a specific opinion |
+| `search_pacer` | Searching PACER dockets and filings |
+| `get_regulations_and_statutes` | Searching statutes and regulations |
+| `lookup_regulations_and_statutes` | Looking up a specific statute by citation |
+| `case_law_web_search` | Web fallback search via Exa |
+| `search_legal_scholarship` | Searching law reviews and treatises |
+| `check_citation_validity` | Running citator check on a case |
+
+**`verify_start` / `verify_result`** bracket an AI filtering step where raw search results are scored for relevance and only those scoring 7/10 or above are kept. The `count` in `verify_result` is the number that passed.
+
+### 2. Text chunks
+
+The actual response content, streamed token by token in OpenAI-compatible format.
+
+```
+data: {"choices":[{"delta":{"content":"To obtain a preliminary injunction in the 9th Circuit, a party must establish "}}]}
+
+data: {"choices":[{"delta":{"content":"four elements under [*Winter v. Natural Resources Defense Council*, 555 U.S. 7 (2008)]"}}]}
+```
+
+Concatenate `choices[0].delta.content` across all text chunks to reconstruct the full response.
+
+### 3. Control events
+
+```
+: heartbeat
+```
+A comment line (starts with `:`) sent every 15 seconds to prevent proxy and load balancer timeouts. Safe to ignore.
+
+```
+data: [DONE]
+```
+Signals the stream is complete. Always emitted last, including after errors.
+
+### Error event
+
+If the agent throws an unrecoverable error, one error event is emitted before `[DONE]`:
+
+```
+data: {"error":"CourtListener API returned 503"}
+
+data: [DONE]
+```
+
+---
+
+## Code examples
+
+<CodeGroup>
+
+```javascript Node.js
+import fetch from 'node-fetch';
+
+const res = await fetch('https://api.lawdie.co/research', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-API-Key': process.env.LAWDIE_API_KEY,
+  },
+  body: JSON.stringify({
+    query: 'What is the standard for granting a preliminary injunction in the 9th Circuit?',
+    jurisdiction: '9th Circuit',
+    courtFilters: ['ca9', 'scotus'],
+  }),
+});
+
+let buffer = '';
+
+for await (const chunk of res.body) {
+  buffer += chunk.toString();
+  const lines = buffer.split('\n');
+  buffer = lines.pop(); // keep incomplete line
+
+  for (const line of lines) {
+    if (!line.startsWith('data: ')) continue;
+    const raw = line.slice(6).trim();
+    if (raw === '[DONE]') break;
+    if (raw.startsWith(':')) continue; // heartbeat comment
+
+    const msg = JSON.parse(raw);
+
+    if (msg.event) {
+      // progress event
+      console.log('[progress]', msg.event, msg.toolName, msg.count ?? '');
+    } else if (msg.choices?.[0]?.delta?.content) {
+      // text chunk
+      process.stdout.write(msg.choices[0].delta.content);
+    } else if (msg.error) {
+      console.error('[error]', msg.error);
+    }
+  }
+}
+```
+
+```python Python
+import os, json
+import requests
+
+def research(query, jurisdiction=None, court_filters=None):
+    body = {"query": query}
+    if jurisdiction:
+        body["jurisdiction"] = jurisdiction
+    if court_filters:
+        body["courtFilters"] = court_filters
+
+    with requests.post(
+        "https://api.lawdie.co/research",
+        headers={
+            "Content-Type": "application/json",
+            "X-API-Key": os.environ["LAWDIE_API_KEY"],
+        },
+        json=body,
+        stream=True,
+    ) as resp:
+        resp.raise_for_status()
+        for raw_line in resp.iter_lines():
+            if not raw_line:
+                continue
+            line = raw_line.decode("utf-8")
+            if not line.startswith("data: "):
+                continue
+            data = line[6:].strip()
+            if data == "[DONE]":
+                break
+            if data.startswith(":"):
+                continue  # heartbeat
+
+            msg = json.loads(data)
+            if "event" in msg:
+                print(f"[{msg['event']}] {msg.get('toolName','')} count={msg.get('count','')}")
+            elif msg.get("choices"):
+                print(msg["choices"][0]["delta"]["content"], end="", flush=True)
+            elif "error" in msg:
+                print(f"\n[error] {msg['error']}")
+
+research(
+    "What is the standard for granting a preliminary injunction in the 9th Circuit?",
+    jurisdiction="9th Circuit",
+    court_filters=["ca9", "scotus"],
+)
+```
+
+</CodeGroup>
+
+---
+
+## Error responses
+
+HTTP errors are returned as JSON before the SSE stream opens.
+
+| Status | Body | Cause |
+|---|---|---|
+| `400` | `{"error":"query is required and must be a non-empty string."}` | Missing or empty `query` field |
+| `401` | `{"error":"Missing X-API-Key header."}` | No `X-API-Key` header |
+| `401` | `{"error":"Invalid API key."}` | Key not found |
+| `403` | `{"error":"API key has been revoked."}` | Key was revoked |
+| `403` | `{"error":"API plan is not active."}` | Trial expired or plan not active |
+| `429` | `{"error":"Monthly request limit reached.","limit":1000,"used":1000}` | Monthly cap hit |
+| `429` | `{"error":"Rate limit exceeded. Max 60 requests per minute."}` | Per-minute cap hit |
+
+---
+
+## Court codes
+
+Pass these in `courtFilters` to restrict case law searches to specific courts.
+
+**Federal courts**
+
+| Code | Court |
+|---|---|
+| `scotus` | U.S. Supreme Court |
+| `ca1`–`ca11` | 1st–11th Circuit Courts of Appeals |
+| `cadc` | D.C. Circuit |
+| `cafc` | Federal Circuit |
+| `nysd`, `nyed`, `nywd`, `nynd` | S/E/W/N District of New York |
+| `cacd`, `cand`, `caed`, `casd` | C/N/E/S District of California |
+| `txnd`, `txsd`, `txed`, `txwd` | N/S/E/W District of Texas |
+| `ilnd` | N. District of Illinois |
+| `dcd` | District of D.C. |
+
+**State courts** — use the state postal abbreviation (e.g. `ca`, `ny`, `tx`, `fl`). The API maps these automatically to the corresponding OpenLaws jurisdiction.

@@ -94,6 +94,13 @@
         ]
       },
       {
+        "group": "APIs",
+        "icon": "code",
+        "pages": [
+          "api/legal-research"
+        ]
+      },
+      {
         "group": "Troubleshooting",
         "icon": "wrench",
         "pages": [

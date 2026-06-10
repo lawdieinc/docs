@@ -5,76 +5,61 @@ description: Extract operative rule statements from case law and generate Rule E
 
 ## What it does
 
-The Rule Statement & RERA agent is a legal writing specialist. It takes case law — either from a prior search or cases you paste in — and runs a two-step workflow:
+The Rule Statement & RERA agent is a legal writing specialist. Tell it what element you're briefing and give it your client's facts — it finds the cases, pulls the court's own operative language, and drafts brief-ready RE and RA paragraphs with inline Bluebook citations.
 
-1. **Extract rule statements** — pulls the court's own operative language (not a paraphrase) and scores each case on how well its rule fits your client's facts
-2. **Generate RERA** — drafts a Rule Explanation paragraph (synthesizing the rule from top cases) and a Rule Application paragraph (applying the rule to your client's facts)
+The output is brief-ready: active voice, no hedging, Bluebook citations as hyperlinks you can click through to the opinion.
 
-The output is brief-ready: inline Bluebook citations as hyperlinks, active voice, no hedging language.
+## How to trigger it
 
-## The workflow
+Mention **"rule statement"**, **"RE/RA"**, or **"RERA"** anywhere in your message and the agent activates automatically.
 
-```
-searchCaseLaw (find relevant cases)
-    ↓
-getOpinionText (fetch full text if needed)
-    ↓
-extract_rule_statements (score cases by argument fit)
-    ↓
-generate_rera (draft RE + RA paragraphs)
-```
+You can also paste case names directly — the agent will use those instead of searching.
+
+## What to include
+
+The more context you give upfront, the stronger the output:
+
+| What | Required | Notes |
+|---|---|---|
+| Legal element | Yes | The specific argument being supported — e.g., "failure to warn under strict liability" |
+| Client facts | Yes | The facts of your client's case — the agent will ask if missing |
+| Jurisdiction | Recommended | Circuit, district, or state — defaults to Federal |
+| Audience | Optional | `judge`, `jury`, or `memo` — tailors formality |
+| Your theory | Optional | Your initial read on why your client wins — the agent builds on it rather than ignoring it |
+| Counterarguments | Optional | Anticipated weaknesses — used to sharpen the affirmative argument |
+
+## What you get back
+
+1. **Case analysis** — a prose paragraph on which cases were found and what each contributes to the argument, with inline hyperlinked citations
+2. **Rule Explanation (RE)** — synthesized from the top 2–3 cases using the court's own language
+3. **Rule Application (RA)** — applies the rule to your client's facts, draws factual analogies, flags 1–2 weaknesses
+4. **Lead case recommendation** — one sentence on which case to lead the RE with and why
+5. **Follow-up actions** — 1–2 next steps you can take
 
 <Note>
-  `extract_rule_statements` must always run before `generate_rera`. The agent handles this automatically.
+  If a rule statement comes from a concurrence rather than the majority, the agent flags it inline. If all rule statements are from majority opinions, nothing extra is said.
 </Note>
-
-## Tools
-
-### `extract_rule_statements`
-
-For each case provided, this tool extracts:
-
-| Output field | Description |
-|---|---|
-| `rule_statement` | The court's own language stating the rule — never paraphrased |
-| `dispositive_facts` | Key facts the court relied on (2–3 sentences) |
-| `argument_fit_score` | 1–10 score of how well this rule fits your client's facts |
-| `source` | Whether the rule comes from the majority or a concurrence |
-| `recommended` | `true` for the single best case |
-
-Cases are returned sorted by `argument_fit_score` descending.
-
-### `generate_rera`
-
-Takes the scored cases and generates:
-
-| Output field | Description |
-|---|---|
-| `re_paragraph` | Rule Explanation — synthesizes the rule from the top 2–3 cases using the court's language, with inline Bluebook citations |
-| `ra_paragraph` | Rule Application — applies the rule to your client's facts, draws factual analogies, flags 1–2 weaknesses |
-| `recommended_lead_case` | The single strongest case to lead with |
-| `citation_list` | All citations used |
-
-## Writing rules the agent follows
-
-- Active voice in every sentence
-- No hedging ("arguably", "it could be argued", "may potentially")
-- Uses the court's own language for the rule — never paraphrases
-- Does not introduce new cases in the RA paragraph
-- Tailors formality to the specified audience (judge, jury, or memo)
 
 ## Example prompts
 
-- *"Find cases on fraudulent misrepresentation in the 5th Circuit and draft RERA paragraphs for my breach of contract claim."*
-- *"Extract the rule statement from [case name] and score it against these client facts: [facts]."*
-- *"Draft RE and RA for a 12(b)(6) motion to dismiss, jurisdiction: SDNY, audience: judge."*
+**Drafting a 12(b)(6) motion:**
+> "Draft RE and RA for a 12(b)(6) motion to dismiss. Element: failure to plead a plausible claim for fraudulent misrepresentation. Jurisdiction: SDNY. Client facts: plaintiff alleges in conclusory terms that our client 'intentionally deceived' him but pleads no specific misstatement, no date, no speaker. Audience: judge."
 
-## Inputs you can provide
+**Starting from a case you already know:**
+> "I want rule statements from *Iqbal* and *Twombly* for a Rule 12(b)(6) brief on pleading plausibility. Client was sued for breach of contract — complaint has no specific allegations of what term was breached or when. Draft the RE/RA."
 
-| Input | Required | Description |
-|---|---|---|
-| Cases | Yes | From a prior `searchCaseLaw` call, or paste case names and citations |
-| Client facts | Yes | The facts of your client's case — used to score rule fit |
-| Legal argument | Yes | The specific element being supported (e.g., "breach of fiduciary duty") |
-| Jurisdiction | Optional | Circuit, district, or state — defaults to Federal |
-| Audience | Optional | `judge`, `jury`, or `memo` — tailors formality |
+**Going into trial on a negligence claim:**
+> "Generate RERA paragraphs for the duty element in a premises liability case in the 11th Circuit. Client is a grocery store — plaintiff slipped on water near the entrance. No employee saw the spill. My theory: no constructive notice because no evidence the spill existed long enough to put the store on notice."
+
+**Appellate brief, with your theory and known weakness:**
+> "I'm writing the argument section of a 5th Circuit appellate brief. Element: whether plaintiff exhausted administrative remedies under the ADEA. My theory is exhaustion was excused because the agency's process was futile — they had a policy of denying all claims in this category. Anticipated counterargument: plaintiff never attempted to file. Draft RE and RA with that weakness flagged."
+
+**Quick rule extraction from a single case:**
+> "Pull the rule statement on willful copyright infringement from *BMG Rights Management v. Cox Enterprises*. Client facts: ISP had notice of repeated infringement by a subscriber but did not terminate. Score it against my facts and tell me if this is the right lead case."
+
+## Tips for better output
+
+- **Include your theory.** If you already have a read on why your client wins, say it. The agent builds on your reasoning rather than starting from scratch.
+- **Name the element precisely.** "Negligence" produces weaker results than "breach of the duty to warn under strict products liability."
+- **Paste cases you've already found.** The agent will use them as the starting point and supplement if needed.
+- **Flag the weakness yourself.** If you know the strong counterargument, include it — the agent will harden the affirmative argument against it rather than leaving it unaddressed.
