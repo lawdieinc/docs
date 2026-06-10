@@ -7,13 +7,15 @@ description: Search case law, dockets, and court opinions using CourtListener an
 
 The legal research agent searches federal and state court databases to find relevant case law, pull docket entries, and retrieve full opinion text. It's the starting point for any research-heavy task.
 
-## Tools
+## What it searches
 
-| Tool | Description |
-|------|-------------|
-| `searchCaseLaw` | Full-text search across CourtListener's database of opinions |
-| `getOpinionText` | Fetch the full text of a specific opinion by URL |
-| PACER lookup | Access federal court dockets and filings |
+| Source | Coverage |
+|--------|----------|
+| **CourtListener** | Federal and state court opinions with full opinion text |
+| **OpenLaws** | State case law, statutes, regulations, and court rules |
+| **PACER** | Federal court dockets and filings |
+
+Every case returned is automatically checked to confirm it's still good law before it appears in your response. If a case has been overruled, Lawdie flags it rather than silently citing bad authority.
 
 ## Example prompts
 

@@ -1,34 +1,120 @@
 ---
 title: Patent Search
-description: Search the USPTO database for patents, prior art, and patent applications.
+description: Search the USPTO database for patents, prior art, and patent applications — with purpose-built workflows for patentability, invalidity, FTO, prosecution, claim scope, and IP due diligence.
 ---
 
 ## What it does
 
-The patent search agent queries the USPTO patent database to find existing patents, prior art, and pending applications. It's designed for IP attorneys conducting freedom-to-operate analyses, patentability searches, and litigation research.
+The patent agent searches the USPTO patent database and runs purpose-built analysis workflows depending on what you need. Describe your task in plain language — the agent picks the right approach automatically.
 
-## Example prompts
+## Workflows
 
-- *"Search for patents related to noise-canceling headphone technology filed after 2018."*
-- *"Find prior art for a machine learning model that predicts stock prices using sentiment analysis."*
-- *"Look up patent US10,234,567 and summarize its claims."*
-- *"Is there existing IP around automated document classification using transformer models?"*
+### Patentability search
 
-## Tips for better results
+Use before filing to assess whether an invention is novel and non-obvious. The agent searches the full USPTO database for prior art and evaluates results against anticipation (35 USC 102) and obviousness (35 USC 103).
+
+**Trigger phrases:** "can I patent X", "is this patentable", "patentability search", "prior art search before filing"
+
+> *"Can I patent a method for real-time detection of deepfake audio using spectral fingerprinting? Run a prior art search."*
+
+> *"Patentability search for a biodegradable food packaging material that uses mycelium as a structural layer."*
+
+---
+
+### Invalidity search
+
+Use to challenge the validity of an existing patent. The agent looks up the target patent, extracts its independent claims, and searches for prior art predating the effective filing date — the relevant cutoff for 35 USC 102 challenges.
+
+**Trigger phrases:** "is this patent valid", "find prior art to invalidate", "invalidity search", "IPR support", "challenge this patent"
+
+> *"Run an invalidity search on US10,234,567. I need prior art predating the effective filing date that anticipates claim 1."*
+
+> *"Find prior art to support an IPR petition against US9,876,543. The independent claim covers a transformer-based document classification method."*
+
+---
+
+### Prosecution support
+
+Use when responding to a USPTO office action. The agent looks up your pending application, pulls its current claims, and searches for related prior art to help you build arguments against 102/103 rejections or draft targeted claim amendments.
+
+**Trigger phrases:** "office action", "102 rejection", "103 rejection", "claim amendment", "prosecution"
+
+> *"I have a 103 rejection on application 17/456,789 over the Smith reference for claims 1–5. Pull the current claims and find related prior art I can use to distinguish."*
+
+> *"Help me respond to an office action on application 18/045,436. The examiner cited obviousness — what art exists that I can distinguish?"*
+
+---
+
+### Freedom to operate (FTO)
+
+Use before launching a product or feature. The agent searches for granted patents that could block you and pending applications that may create future risk, then extracts claims from the most relevant granted patents for element-by-element assessment.
+
+**Trigger phrases:** "freedom to operate", "FTO", "are we infringing", "can we ship this", "can we use this technology"
+
+> *"FTO analysis for a mobile app feature that uses on-device machine learning to auto-categorize receipts. Are there blocking patents?"*
+
+> *"Can we launch a subscription billing system that uses AI to predict churn and auto-offer discounts? Run an FTO check."*
+
+---
+
+### Claim scope analysis
+
+Use to understand what a specific patent actually covers — for claim construction, infringement assessment, or comparing against competing patents. The agent extracts all independent and dependent claims and maps the scope against related patents in the same space.
+
+**Trigger phrases:** "what does this patent cover", "claim construction", "claim scope", "claim breadth", "infringement assessment"
+
+> *"What does US11,234,567 actually cover? Break down the independent claims and tell me how broad the scope is."*
+
+> *"Pull the claims for application 17/123,456 and tell me whether our product's feature — which uses a CNN for image segmentation — would fall within claim 1."*
+
+---
+
+### IP due diligence
+
+Use for M&A transactions, licensing negotiations, investment decisions, or competitive intelligence. The agent searches by assignee portfolio and technology area, returning granted patents and pending applications with an assessment of portfolio strength and FTO risk.
+
+**Trigger phrases:** "IP due diligence", "patent portfolio", "competitive patent landscape", "M&A patent review", "licensing analysis"
+
+> *"We're evaluating an acquisition of BioTech Co. Run IP due diligence on their patent portfolio and the CRISPR gene editing space more broadly."*
+
+> *"Give me a competitive patent landscape for noise-canceling audio technology. Who holds the key patents and what's still pending?"*
+
+---
+
+## Other lookups
+
+In addition to the workflows above, you can ask about specific patents and applications directly:
+
+| What to ask | Example |
+|---|---|
+| Look up a granted patent | *"Look up patent US10,234,567 and summarize its claims."* |
+| Look up a pending application | *"What's the status of application 17/456,789?"* |
+| Patent term adjustment | *"What's the PTA for application 18/045,436? When does it expire?"* |
+| Examiner data | *"Who is the examiner on application 17/123,456 and what's their typical prior art?"* |
+
+<Note>
+  Patent numbers (e.g. US10,234,567) and application numbers (e.g. 17/456,789) are different. If it's not clear which you have, Lawdie will ask before proceeding.
+</Note>
+
+## Tips
 
 <AccordionGroup>
-  <Accordion title="Use technical keywords, not brand names">
-    Search by the underlying technology (e.g., "convolutional neural network image recognition") rather than product names, which may not appear in patent filings.
+  <Accordion title="Use technical keywords, not product names">
+    Search by the underlying technology (e.g., "convolutional neural network image segmentation") rather than product names, which rarely appear in patent filings.
   </Accordion>
-  <Accordion title="Specify a date range">
-    Narrow to a filing window to find the most relevant prior art for your patentability analysis.
+  <Accordion title="Provide the application or patent number when you have it">
+    Invalidity, prosecution, claim scope, and FTO workflows all produce sharper results when you give a specific number — the agent can pull exact claims rather than estimating from keyword searches.
   </Accordion>
-  <Accordion title="Ask for claim summaries">
-    Patent claim language is dense. Ask Lawdie to summarize the independent claims in plain English.
+  <Accordion title="Describe what you're trying to accomplish, not just the technology">
+    "FTO analysis for X" gives the agent the context to pick the right workflow. "Search for patents about X" triggers a general search. The more intent you include, the more targeted the output.
+  </Accordion>
+  <Accordion title="For prosecution, paste the rejection language">
+    Include the examiner's rejection summary (e.g., "102 rejection over Smith, claims 1–3"). The agent uses it to focus the prior art search on the specific elements at issue.
   </Accordion>
 </AccordionGroup>
 
 ## Related agents
 
-- [Trademark Search](/agents/trademark-search) — for brand and mark searches alongside patent work
-- [Document Drafting](/agents/document-drafting) — to generate patent-related documents and correspondence
+- [Trademark Search](/agents/trademark-search) — for brand and mark clearance alongside patent work
+- [Document Drafting](/agents/document-drafting) — to draft office action responses, patent-related correspondence, or licensing agreements
+- [Deep Research](/agents/deep-research) — for a full prior art landscape with secondary sources and academic commentary

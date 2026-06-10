@@ -1,87 +1,104 @@
 ---
 title: Common Issues
-description: Fixes for the most frequent problems in Lawdie.
+description: Solutions to the most common problems attorneys run into on Lawdie.
 ---
 
-## Agent streaming hangs or stops mid-response
+## The response stopped halfway through
 
-The response starts but stops partway through, or the loading indicator spins indefinitely.
+Kiwi started responding but the text cut off and the loading indicator kept spinning.
 
-**Fixes:**
-1. Check the backend server logs for errors (`src/backend/serverstuff/`)
-2. Verify your Supabase connection is active and the project is not paused
-3. Confirm all LLM API keys (OpenAI, XAI/Grok) are valid and have remaining quota
-4. Refresh the page and try again — SSE connections occasionally drop on network changes
-
----
-
-## CORS errors in the browser console
-
-You see `Access-Control-Allow-Origin` errors when the frontend tries to reach the backend.
-
-**Fixes:**
-1. Confirm the backend `CORS` configuration in `server.js` includes your frontend URL (`localhost:3000` for local, `lawdie.co` for production)
-2. Check that `FRONTEND_URL` is set correctly in the backend `.env`
-3. Restart the backend server after any `.env` changes
+**Try these in order:**
+1. Refresh the page — the connection occasionally drops on network changes
+2. If it happens consistently on the same question, try rephrasing or breaking it into a shorter query
+3. If it keeps happening, contact **support@lawdie.co**
 
 ---
 
-## Environment variables not loading
+## I'm getting wrong or irrelevant research results
 
-The app behaves as if API keys or URLs are missing.
+The cases or statutes Kiwi returned don't match what you were looking for.
 
-**Fixes:**
-1. All frontend variables must start with `REACT_APP_` — variables without this prefix are ignored by Create React App
-2. Restart both the frontend and backend servers after editing any `.env` file — changes are not hot-reloaded
-3. Confirm `.env` files exist in both `referral-ui-dashboard/` (frontend) and `src/backend/serverstuff/` (backend)
+**Try being more specific in your prompt:**
+- Include the jurisdiction: *"9th Circuit"*, *"New York state courts"*, *"SDNY"*
+- Name the exact legal element: instead of *"negligence"*, say *"duty to warn under strict products liability"*
+- Give your client's facts — the agent uses them to score how relevant each case is
 
----
-
-## Document upload fails
-
-File uploads produce an error or the file never appears in the chat.
-
-**Fixes:**
-1. Verify AWS S3 credentials in the backend `.env` (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `S3_BUCKET_NAME`)
-2. Check the IAM user has `s3:PutObject` and `s3:GetObject` permissions on the bucket
-3. Confirm the S3 bucket region matches `AWS_REGION` in `.env`
-4. Check that the file is under the size limit (50MB)
+If you're researching a specific statute, cite it directly: *"Look up 42 U.S.C. § 1983"* returns the text of the statute without a broad search.
 
 ---
 
-## Routed to the wrong agent
+## Kiwi went to the wrong specialist
 
-Your request keeps going to the wrong specialist — e.g., a patent question going to the general legal research agent.
+You asked a patent question but got a general research response, or a drafting request turned into a research session.
 
-**Fixes:**
-1. Check your `practice_areas` field in the Supabase `users` table — it must be set correctly for the supervisor to route you to the patent workflow
-2. Be explicit in your prompt: start with the topic (e.g., "USPTO patent search for...") to help the supervisor identify intent
-3. Contact your workspace admin to update your practice area if you don't have database access
+**How routing works:** Kiwi reads intent from your first sentence. Be explicit about what you want:
+- *"USPTO patent search for..."* → routes to Patent agent
+- *"Draft a motion to dismiss for..."* → routes to Document Drafting agent
+- *"Rule statements and RE/RA for..."* → routes to Rule Statement agent
 
----
-
-## Google integration disconnected
-
-Gmail or Calendar agent returns "not connected" errors.
-
-**Fixes:**
-1. Go to **Settings → Integrations** and click **Reconnect Google**
-2. Complete the OAuth flow and grant all requested scopes
-3. If using a Google Workspace account, confirm your admin has not blocked third-party OAuth apps
+If your account is set up for a specific practice area and routing is consistently wrong, contact support to update your profile.
 
 ---
 
-## Clio documents not syncing
+## A document I uploaded isn't being read correctly
 
-Generated documents aren't appearing in Clio matters.
+Kiwi returned a summary that doesn't match the document, or said it couldn't read the file.
 
-**Fixes:**
-1. Reconnect Clio at **Settings → Integrations** — the OAuth token may have expired
-2. Confirm the matter name in your Lawdie prompt exactly matches the matter name in Clio
-3. Check that the Clio OAuth scope includes `documents:write`
+**Check the following:**
+- Supported formats are **PDF** and **DOCX** — scanned image PDFs without text layers cannot be read
+- Files must be under **50MB**
+- If the PDF is a scanned document, try running it through OCR first before uploading
 
 ---
 
-## Need more help?
+## My Google (Gmail / Calendar) connection stopped working
 
-Reach the Lawdie support team at **support@lawdie.co** or open an issue on the [GitHub repository](https://github.com/lawdieinc).
+The email or calendar agent says it's not connected or returns an authorization error.
+
+**Fix:**
+1. Go to **Settings → Integrations**
+2. Click **Reconnect** next to Google
+3. Complete the sign-in and approve all requested permissions
+4. If you use a Google Workspace account and the button doesn't work, your IT admin may need to allow third-party app access
+
+---
+
+## My Clio integration isn't syncing documents
+
+Documents drafted in Lawdie aren't showing up in the right Clio matter.
+
+**Fix:**
+1. Go to **Settings → Integrations** and reconnect Clio — the session token may have expired
+2. When asking Kiwi to save to Clio, use the **exact matter name** as it appears in Clio (including capitalization)
+3. If the matter still doesn't sync, try opening the matter in Clio first, then re-running the request in Lawdie
+
+---
+
+## I can't log in
+
+Forgot your password, or the login page isn't loading.
+
+- Use **Forgot Password** on the login screen to reset via email
+- If you signed up with Google, click **Continue with Google** instead of entering a password
+- For firm-managed accounts, contact your workspace admin — they control access and seat assignments
+
+---
+
+## A case citation link isn't working
+
+You clicked a Bluebook citation hyperlink in a response and got a 404 or empty page.
+
+CourtListener and OpenLaws occasionally restructure URLs. The case itself is almost certainly still accessible — try:
+1. Copying the citation text (e.g. *555 U.S. 7*) and searching it directly on [courtlistener.com](https://www.courtlistener.com)
+2. Asking Kiwi: *"Find the full text of [case name]"* to re-fetch it
+
+---
+
+## Still stuck?
+
+Email **support@lawdie.co** and include:
+- What you were trying to do
+- What Kiwi returned (or didn't)
+- Any error message you saw
+
+We typically respond within one business day.

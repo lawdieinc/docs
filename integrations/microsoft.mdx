@@ -41,20 +41,14 @@ Once connected, click the file picker in the chat input and select **OneDrive**.
 - Excel spreadsheets (`.xlsx`) — for structured data extraction
 - PowerPoint presentations (`.pptx`)
 
-## Azure deployment
+## Enterprise Microsoft 365
 
-For firms hosting Lawdie on Azure, the backend can be deployed as an Azure App Service or Container Instance. Key configuration:
-
-- Set all environment variables via Azure App Configuration or Key Vault references
-- Use Azure Blob Storage as an alternative to AWS S3 for document storage (requires custom configuration)
-- Configure Azure Active Directory for enterprise SSO instead of Google OAuth
-
-Contact the Lawdie team for enterprise Azure deployment support.
+For firms on Microsoft 365 with managed IT environments, Lawdie supports enterprise sign-in and can be configured to work with your organization's security policies. Contact **support@lawdie.co** to discuss your firm's setup.
 
 ## Troubleshooting
 
 | Issue | Fix |
 |-------|-----|
-| OneDrive picker shows empty | Re-authorize and confirm OneDrive access was granted during OAuth |
+| OneDrive picker shows empty | Re-authorize and confirm OneDrive access was granted during sign-in |
 | Files fail to attach from OneDrive | Check that the file type is supported and under 50MB |
-| Azure deployment errors | Verify all required environment variables are set in App Configuration |
+| Sign-in blocked by your organization | Your IT admin may need to approve Lawdie as an allowed app — contact them or reach out to support@lawdie.co |

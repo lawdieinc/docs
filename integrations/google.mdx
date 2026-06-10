@@ -37,13 +37,13 @@ The Google integration unlocks the [Email agent](/agents/email-agent) and [Calen
 
 ## Permissions
 
-Lawdie requests only the scopes necessary for each feature. If you skip Drive during setup, Gmail and Calendar still work independently.
+Lawdie requests only the permissions necessary for each feature. If you skip Drive during setup, Gmail and Calendar still work independently.
 
-| Scope | Required for |
-|-------|-------------|
-| `gmail.modify` | Email agent (read + send) |
-| `calendar.events` | Calendar agent |
-| `drive.readonly` | Drive file picker (optional) |
+| Permission | Required for |
+|------------|-------------|
+| Read and send mail | Email agent |
+| Read and write calendar events | Calendar agent |
+| Read files | Drive file picker (optional) |
 
 <Warning>
   Lawdie does not store email or calendar content. All data is accessed live through the Google API at the time of your request.
