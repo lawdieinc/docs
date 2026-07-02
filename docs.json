@@ -60,6 +60,7 @@
           "agents/legal-research",
           "agents/deep-research",
           "agents/rule-statement-rera",
+          "agents/defendant-claim-analysis",
           "agents/patent-search",
           "agents/trademark-search",
           "agents/document-drafting",
