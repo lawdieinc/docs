@@ -1,0 +1,91 @@
+---
+title: Defendant Claim Analysis
+description: Profile the opposing party or opposing counsel from their recent court filings to surface their argument patterns and the counterarguments you'll likely face.
+---
+
+## What it does
+
+Defendant Claim Analysis builds a litigation profile of the other side. Name an opposing **party** (defendant or plaintiff) and/or opposing **counsel** in your query, and Lawdie mines their recent cases on CourtListener, reads the underlying filings, and synthesizes:
+
+1. **Recurring argument patterns** — the legal theories, claims, and defenses they reach for again and again
+2. **Signature tactics** — the authorities, procedural moves, and framing they favor
+3. **Likely counterarguments** — the positions you should expect from them, and the weaknesses to exploit against those positions
+
+The result is a strategic read on the opposition *before* you write your brief — grounded in what they've actually filed, not guesswork.
+
+<Note>
+  Defendant Claim Analysis is not a standalone agent. It runs automatically inside the [Legal Research](/agents/legal-research) and [Rule Statement & RERA](/agents/rule-statement-rera) agents whenever you name someone to profile. There's nothing separate to switch on.
+</Note>
+
+## How to use it
+
+Work through **Kiwi AI** as you normally would with Legal Research or Rule Statement, and simply name the opposing party and/or counsel in your prompt. Phrases like *"profile opposing counsel…"*, *"research the defendant…"*, or *"who are we up against…"* trigger it.
+
+<Steps>
+  <Step title="Name the opposition in your query">
+    Add the opposing party and/or attorney to any Legal Research or Rule Statement prompt — e.g. *"…and profile opposing counsel Jane Doe."* You can name a party, an attorney, or both.
+  </Step>
+  <Step title="Confirm who you mean, if asked">
+    If the name matches more than one person or entity on CourtListener, Lawdie pauses and lists the candidates with a sample case for each. Reply with the full name or its number to continue.
+  </Step>
+  <Step title="Lawdie profiles them before searching case law">
+    It pulls their recent dockets, reads the filings, and synthesizes the profile *first* — so the profile is ready by the time your case-law results come back.
+  </Step>
+  <Step title="The profile is woven into your answer">
+    In Legal Research, the argument patterns and counterarguments are folded into the response. In Rule Statement & RERA, they appear as a dedicated **Opposing Counsel / Party Profile** section and are used to sharpen the Rule Application.
+  </Step>
+</Steps>
+
+## Using it with Legal Research
+
+Pair it with a normal case-law search when you want the lay of the land plus a read on the other side in one pass. The profile comes back alongside your search results, with the opposition's likely counterarguments called out.
+
+> *"Find recent Ninth Circuit cases on trade secret misappropriation under the DTSA, and profile opposing counsel Marcus Feldman."*
+
+> *"Pull case law on personal jurisdiction over out-of-state manufacturers, and research the defendant Acme Industries — what arguments do they usually run?"*
+
+> *"Research opposing counsel Jane Doe. What's her playbook, and what should I be ready for?"*
+
+## Using it with Rule Statement & RERA
+
+This is where it's sharpest. When you draft RE/RA paragraphs, the opposition profile feeds directly into the **Rule Application** — the agent hardens your affirmative argument against the counterarguments the other side is most likely to raise, and adds an *Opposing Counsel / Party Profile* section to the output.
+
+> *"Draft RE and RA for a 12(b)(6) motion. Element: failure to plead scienter for securities fraud. Jurisdiction: SDNY. Client facts: complaint alleges only that our client 'must have known' the projections were false. Also profile plaintiff's counsel, Thomas Girardi, so I know what they'll push back with."*
+
+> *"Generate RERA on the duty element in a premises-liability case in the 11th Circuit, and profile the defendant BigBox Retail — I want the RA to pre-empt their usual no-constructive-notice argument."*
+
+## What you need for a good profile
+
+The profile is only as good as what the opposition has publicly filed. Results are strongest when:
+
+| Factor | Why it matters |
+|---|---|
+| The party/attorney has **recent federal cases** | The profile is built from CourtListener's RECAP (federal PACER) records |
+| Their filings are **publicly readable** | Documents locked behind the PACER paywall can't be read, which thins the profile |
+| The name is **specific** | Full names disambiguate faster; a common name may trigger the confirmation step |
+
+<Note>
+  Lawdie inspects up to the 10 most recent dockets and summarizes up to 12 filings per profile. A litigant with little federal filing history, or whose documents aren't publicly available, will produce a limited profile — Lawdie tells you when that happens rather than inventing detail.
+</Note>
+
+## Tips for better results
+
+<AccordionGroup>
+  <Accordion title="Use full names">
+    "Thomas Vincent Girardi" resolves cleanly; "T. Girardi" or a common surname alone is more likely to match multiple people and trigger the confirmation step. Middle names and initials still match.
+  </Accordion>
+  <Accordion title="Profile both the party and their counsel">
+    They reveal different things — the party's profile surfaces the substantive positions they take, while counsel's profile surfaces litigation style and procedural tactics. Naming both gives you the fullest picture.
+  </Accordion>
+  <Accordion title="Say what you're up against">
+    Pair the profile request with your own element and facts (as in the RERA examples). The more the agent knows about your case, the more targeted the counterarguments it surfaces.
+  </Accordion>
+  <Accordion title="Entity names work too">
+    You can profile a company, not just an individual — e.g. "profile the defendant Johnson & Johnson." Firm and entity names are handled the same way as personal names.
+  </Accordion>
+</AccordionGroup>
+
+## Related
+
+- [Legal Research](/agents/legal-research) — the case-law search this runs alongside
+- [Rule Statement & RERA](/agents/rule-statement-rera) — where the profile sharpens your Rule Application
