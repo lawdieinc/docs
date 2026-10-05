@@ -29,7 +29,7 @@
         {
           "anchor": "Dashboard",
           "icon": "layout-dashboard",
-          "href": "https://lawdie.co"
+          "href": "https://lawdie.ai"
         },
         {
           "anchor": "Support",
@@ -119,7 +119,7 @@
     "primary": {
       "type": "button",
       "label": "Go to Lawdie",
-      "href": "https://lawdie.co"
+      "href": "https://lawdie.ai"
     }
   },
   "footer": {
