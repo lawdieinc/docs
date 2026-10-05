@@ -24,7 +24,7 @@ Every case returned is automatically checked for citation validity before it app
 ## Base URL
 
 ```
-https://api.lawdie.co
+https://api.lawdie.ai
 ```
 
 ---
@@ -39,7 +39,7 @@ X-API-Key: lra_your_key_here
 
 ### Getting an API key
 
-1. Log in to your Lawdie account at [lawdie.co](https://lawdie.co)
+1. Log in to your Lawdie account at [lawdie.ai](https://lawdie.ai)
 2. Go to **Settings → API**
 3. Click **Generate Key** — your key is shown once, copy it immediately
 4. New accounts start on a 7-day trial (1,000 requests/month)
@@ -202,7 +202,7 @@ data: [DONE]
 ```javascript Node.js
 import fetch from 'node-fetch';
 
-const res = await fetch('https://api.lawdie.co/research', {
+const res = await fetch('https://api.lawdie.ai/research', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -255,7 +255,7 @@ def research(query, jurisdiction=None, court_filters=None):
         body["courtFilters"] = court_filters
 
     with requests.post(
-        "https://api.lawdie.co/research",
+        "https://api.lawdie.ai/research",
         headers={
             "Content-Type": "application/json",
             "X-API-Key": os.environ["LAWDIE_API_KEY"],
